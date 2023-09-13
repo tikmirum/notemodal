@@ -1,6 +1,7 @@
+import { NotesViewer } from './elements/NotesViewer';
 
 const App = () => {
-  return <>hello</>;
+  return <NotesViewer/>;
 };
 
 export default App;
