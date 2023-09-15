@@ -7,6 +7,8 @@ import * as Styled from './styles';
 type AddNoteModalProps = {
   setNotes: React.Dispatch<React.SetStateAction<TNote[]>>;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  currentIdRef: React.MutableRefObject<number>;
+
   open: boolean;
 };
 
@@ -14,19 +16,20 @@ export const AddNoteModal = ({
   setNotes,
   setOpen,
   open,
+  currentIdRef,
 }: AddNoteModalProps) => {
   const [form] = Form.useForm();
-  const currentIdRef = useRef(0);
 
-  const onFinish = (values: { title: string }) => {
+  const onFinish = (values: { title: string; description: string }) => {
     setNotes((prevState) => [
       {
         title: values.title,
+        description: values.description,
         id: currentIdRef.current,
       },
       ...prevState,
     ]);
-    currentIdRef.current += 1;
+    currentIdRef.current++;
     form.resetFields();
     handleCancel();
   };
@@ -54,7 +57,15 @@ export const AddNoteModal = ({
         >
           <Input autoFocus />
         </Form.Item>
-
+        <Form.Item
+          name="description"
+          label={<Styled.TitleModal>Description</Styled.TitleModal>}
+          rules={[
+            { required: true, message: 'Please input your Description!' },
+          ]}
+        >
+          <Styled.TextArea />
+        </Form.Item>
         <Button type="primary" htmlType="submit" block>
           Add Note
         </Button>

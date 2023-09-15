@@ -16,3 +16,11 @@ export const TitleModal = styled('div')`
   font-size: 24px;
   padding: 4px;
 `;
+
+export const TextArea = styled(`textarea`)`
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  height: 100px;
+`;

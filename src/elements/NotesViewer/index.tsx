@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PlusSvg from 'assets/images/plus.png';
 import DeleteSvg from 'assets/images/delete.svg';
 
 import * as Styled from './styles';
 import { AddNoteModal } from 'components/AddNoteModal';
 
-export type TNote = { title: string; id: number };
+type NotesViewerProps = {
+  notes: TNote[];
+  currentIdRef: React.MutableRefObject<number>;
+  setNotes: React.Dispatch<React.SetStateAction<TNote[]>>;
+};
+export type TNote = { title: string; description: string; id: number };
 
-export const NotesViewer = () => {
+export const NotesViewer = ({
+  notes,
+  setNotes,
+  currentIdRef,
+}: NotesViewerProps) => {
   const [open, setOpen] = useState(false);
-  const [notes, setNotes] = useState<TNote[]>(() => {
-    const saved = localStorage.getItem('Note') || '[]';
-
-    return JSON.parse(saved) as TNote[];
-  });
-
-  useEffect(() => {
-    localStorage.setItem('Note', JSON.stringify(notes));
-  }, [notes]);
 
   const nullNotes = () => {
     setNotes([]);
@@ -49,12 +50,19 @@ export const NotesViewer = () => {
         </Styled.Row>
         {notes.map((note) => (
           <Styled.RowNote key={note.id}>
-            <Styled.Title>{note.title}</Styled.Title>
+            <Link to={`/${note.id}`}>
+              <Styled.Title>{note.title}</Styled.Title>
+            </Link>
             <Styled.Delete onClick={() => deleteNote(note)} src={DeleteSvg} />
           </Styled.RowNote>
         ))}
       </Styled.All>
-      <AddNoteModal setNotes={setNotes} setOpen={setOpen} open={open} />
+      <AddNoteModal
+        currentIdRef={currentIdRef}
+        setNotes={setNotes}
+        setOpen={setOpen}
+        open={open}
+      />
     </>
   );
 };

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const All = styled('div')`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background: lightcyan;
   border-radius: 8px;
   border: 2px solid black;
@@ -15,32 +16,6 @@ export const Header = styled('div')`
   font-size: 46px;
 `;
 
-export const RowNote = styled('div')`
-  display: flex;
-  justify-content: space-between;
-  margin: 16px;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid gray;
-  height: 50px;
-  align-items: center;
-`;
-
-export const Title = styled('div')`
-  font-size: 36px;
-  padding: 4px;
-`;
-
-export const Delete = styled('img')`
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-`;
-export const Plus = styled('img')`
-  cursor: pointer;
-  width: auto;
-  height: 60px;
-`;
 export const Row = styled('div')`
   display: flex;
   align-items: center;
@@ -52,8 +27,27 @@ export const Row = styled('div')`
   padding: 26px;
 `;
 
-export const ActionButtons = styled('div')`
+export const TextArea = styled(`div`)`
+  flex: 1;
+  padding: 16px;
+  text-align: start;
+  border-radius: 8px;
+  font-size: 24px;
+  height: 100px;
+`;
+
+export const RowButton = styled('div')`
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 16px 16px 16px;
+`;
+
+export const BackButton = styled('button')`
+  cursor: pointer;
+  font-size: 20px;
+  width: 120px;
+  height: 40px;
 `;
