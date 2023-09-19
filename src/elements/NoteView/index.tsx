@@ -1,6 +1,6 @@
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Form } from 'antd';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import * as Styled from './styles';
 
@@ -16,8 +16,8 @@ export const NoteView = ({ notes, setNotes }: NoteViewProps) => {
   const navigate = useNavigate();
 
   const [note] = notes.filter((noteItem) => noteItem.id === Number(id));
-  const [isEdit, setEdit] = useState(!location.state?.isEdit);
-  const [isChange, setIsChange] = useState(true);
+  const [isEditMode, setEditMode] = useState(location.state?.isEdit);
+  const [hasChanged, setHasChanged] = useState(false);
   const [form] = Form.useForm();
 
   const saveEdit = (values: { title: string; description: string }) => {
@@ -42,13 +42,23 @@ export const NoteView = ({ notes, setNotes }: NoteViewProps) => {
       return copyOfNotes;
     });
     form.resetFields();
-    setEdit(!isEdit);
+    setEditMode(false);
   };
+
+  useEffect(() => {
+    if (!note) {
+      navigate('/');
+    }
+  }, [note]);
+
+  if (!note) {
+    return null;
+  }
 
   return (
     <Fragment key={note.id}>
       <Styled.All>
-        {isEdit ? (
+        {!isEditMode ? (
           <>
             <Styled.Row>
               <Styled.Header>{note.title}</Styled.Header>
@@ -61,9 +71,12 @@ export const NoteView = ({ notes, setNotes }: NoteViewProps) => {
             id="edit-note"
             layout="vertical"
             onFinish={saveEdit}
-            onValuesChange={() => setIsChange(false)}
+            onValuesChange={() => setHasChanged(true)}
             autoComplete="off"
             size="large"
+            style={{
+              padding: 16,
+            }}
           >
             <Form.Item
               initialValue={note.title}
@@ -86,27 +99,28 @@ export const NoteView = ({ notes, setNotes }: NoteViewProps) => {
           </Form>
         )}
         <Styled.RowButton>
-          {isEdit ? (
-            <Styled.BackButton onClick={() => navigate(-1)}>
-              Go Back
-            </Styled.BackButton>
+          {isEditMode ? (
+            <>
+              <Styled.BackButton onClick={() => setEditMode(false)}>
+                Cancel
+              </Styled.BackButton>
+              <Styled.SaveButton
+                disabled={!hasChanged}
+                htmlType="submit"
+                form="edit-note"
+              >
+                Save
+              </Styled.SaveButton>
+            </>
           ) : (
-            <Styled.BackButton onClick={() => setEdit(!isEdit)}>
-              Cancel
-            </Styled.BackButton>
-          )}
-          {isEdit ? (
-            <Styled.BackButton onClick={() => setEdit(!isEdit)}>
-              Edit
-            </Styled.BackButton>
-          ) : (
-            <Styled.SaveButton
-              disabled={isChange}
-              htmlType="submit"
-              form="edit-note"
-            >
-              Save
-            </Styled.SaveButton>
+            <>
+              <Styled.BackButton onClick={() => navigate(-1)}>
+                Go Back
+              </Styled.BackButton>
+              <Styled.BackButton onClick={() => setEditMode(true)}>
+                Edit
+              </Styled.BackButton>
+            </>
           )}
         </Styled.RowButton>
       </Styled.All>

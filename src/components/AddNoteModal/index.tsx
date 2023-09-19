@@ -8,7 +8,6 @@ type AddNoteModalProps = {
   setNotes: React.Dispatch<React.SetStateAction<TNote[]>>;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   currentIdRef: React.MutableRefObject<number>;
-
   open: boolean;
 };
 

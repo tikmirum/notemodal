@@ -25,7 +25,7 @@ export const Row = styled('div')`
   height: 120px;
   border-bottom: 2px solid slategray;
   box-sizing: border-box;
-  padding: 26px;
+  padding: 16px;
 `;
 
 export const TextArea = styled(`div`)`
