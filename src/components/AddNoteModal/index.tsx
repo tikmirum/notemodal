@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal } from 'antd';
-import React, { useRef } from 'react';
+import React from 'react';
+import type { TNote } from 'elements/NotesViewer';
 
-import type { TNote } from '../../elements/NotesViewer';
 import * as Styled from './styles';
 
 type AddNoteModalProps = {

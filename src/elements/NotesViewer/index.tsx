@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PlusSvg from 'assets/images/plus.png';
 import DeleteSvg from 'assets/images/delete.svg';
+import EditSvg from 'assets/images/edit.svg';
 
 import * as Styled from './styles';
 import { AddNoteModal } from 'components/AddNoteModal';
@@ -19,6 +20,7 @@ export const NotesViewer = ({
   currentIdRef,
 }: NotesViewerProps) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const nullNotes = () => {
     setNotes([]);
@@ -31,6 +33,14 @@ export const NotesViewer = ({
 
   const showModal = () => {
     setOpen(true);
+  };
+
+  const editNote = (note: TNote) => {
+    navigate(`/${note.id}`, {
+      state: {
+        isEdit: true,
+      },
+    });
   };
 
   return (
@@ -53,7 +63,10 @@ export const NotesViewer = ({
             <Link to={`/${note.id}`}>
               <Styled.Title>{note.title}</Styled.Title>
             </Link>
-            <Styled.Delete onClick={() => deleteNote(note)} src={DeleteSvg} />
+            <Styled.ActionButtons>
+              <Styled.Delete onClick={() => editNote(note)} src={EditSvg} />
+              <Styled.Delete onClick={() => deleteNote(note)} src={DeleteSvg} />
+            </Styled.ActionButtons>
           </Styled.RowNote>
         ))}
       </Styled.All>

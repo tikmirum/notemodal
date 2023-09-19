@@ -29,7 +29,10 @@ const App = () => {
           />
         }
       />
-      <Route path="/:id" element={<NoteView notes={notes} />} />
+      <Route
+        path="/:id"
+        element={<NoteView setNotes={setNotes} notes={notes} />}
+      />
     </Routes>
   );
 };

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button, Input } from 'antd';
 
 export const All = styled('div')`
   display: flex;
@@ -50,4 +51,36 @@ export const BackButton = styled('button')`
   font-size: 20px;
   width: 120px;
   height: 40px;
+`;
+
+export const TitleModal = styled('div')`
+  font-size: 24px;
+  padding: 4px;
+`;
+
+export const SaveButton = styled(Button)`
+  cursor: pointer;
+  font-size: 20px;
+  width: 120px;
+  height: 40px;
+  margin-left: auto;
+`;
+
+export const SaveInput = styled(Input)`
+  padding: 8px;
+  font-size: 16px;
+  text-align: start;
+  border-radius: 8px;
+  width: 100%;
+`;
+export const SaveText = styled(Input.TextArea)`
+  && {
+    flex: 1;
+    font-size: 16px;
+    padding: 8px;
+    text-align: start;
+    border-radius: 8px;
+    width: 100%;
+    height: 200px;
+  }
 `;

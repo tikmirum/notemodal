@@ -1,5 +1,6 @@
 {
-  "name": "temerature",
+  "name": "notemodal",
+
   "version": "0.1.0",
   "private": true,
   "dependencies": {
