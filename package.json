@@ -1,8 +1,6 @@
 {
   "name": "notemodal",
-
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "dependencies": {
     "@babel/runtime": "^7.19.0",
     "antd": "^5.0.0",
@@ -13,7 +11,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "APP_ENV=development craco build",
+    "build:prod": "APP_ENV=production craco build",
     "test": "craco test",
     "tsc": "tsc",
     "eslint": "eslint src --max-warnings=0 --ext .ts,.tsx",
